@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "SGCIS Test Page 1";
+}
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<div>
+    @(Html.Kendo().Grid<CodeTestSGCIS.Core.DTOs.PersonDto>
+        ()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id).Title("ID");
+            columns.Bound(p => p.Name);
+            columns.Bound(p => p.Age);
+            columns.Bound(p => p.IdTypePerson).Title("Type");
+            columns.Command(command => { command.Edit(); command.Destroy(); command.Custom("ViewDetails").Text("Details").IconClass("k-icon k-i-copy").Click("showDetails").Visible("getBoolean"); }).Title("Actions");
+            })
+        .ToolBar(toolbar => toolbar.Create())
+        .Editable(editable => editable.Mode(GridEditMode.PopUp))
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        .HtmlAttributes(new { style = "height:430px;" })
+        .DataSource(dataSource => dataSource
+            .WebApi()
+            .Model(model => model.Id(p => p.Id))
+            .Read(read => read.Action("Get", "Person"))
+            .Create(create => create.Action("Post", "Person"))
+            .Update(update => update.Action("Put", "Person", new { Id = "{0}" }))
+            .Destroy(update => update.Action("DELETE", "Person", new { Id = "{0}" }))
+            .Events(events => events.Error("error_handler"))
+        )
+    )
+</div>
+
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+    function showDetails(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+        window.open("/Home/Page2?id=" + dataItem.Id, "_blank", "WIDTH=1080,HEIGHT=790,scrollbars=no,menubar=no,resizable=yes,directories=no,location=no");
+    }
+
+    function getBoolean(e) {
+        return (e.IdTypePerson == 1);
+    }
+</script>

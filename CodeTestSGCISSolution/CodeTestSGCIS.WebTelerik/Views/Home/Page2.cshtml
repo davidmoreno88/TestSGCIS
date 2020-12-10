@@ -1,0 +1,53 @@
+﻿@model CodeTestSGCIS.Core.DTOs.PersonDto
+@{ ViewData["Title"] = "SGCIS Test Page 2"; }
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+<script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+<div>
+    <div align="left" style="width:30%">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <div align="center" class="width:30%">
+        @Html.DisplayFor(model => model.Age)
+    </div>
+    <div align="right" class="width:30%">
+        @Html.DisplayFor(model => model.IdTypePerson)
+    </div>
+</div>
+<div id="chart"></div>
+<script type="text/javascript">
+    function randomDate(start, end) {
+        return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    }
+
+    $(document).ready(function () {
+        $("#chart").shieldChart({
+            theme: "light",
+            primaryHeader: {
+                text: ""
+            },
+            exportOptions: {
+                image: false,
+                print: false
+            },
+            axisX: {
+                categoricalValues: Array.from({ length: 10 }, () => randomDate(new Date(2012, 0, 1), new Date()).toLocaleDateString())
+            },
+            tooltipSettings: {
+                chartBound: true,
+                axisMarkers: {
+                    enabled: true,
+                    mode: 'x'
+                }
+            },
+            dataSeries: [{
+                seriesType: 'bar',
+                collectionAlias: "",
+                data: Array.from({ length: 10 }, () => Math.floor(Math.random() * 100))
+            }]
+        });
+    });
+</script>
