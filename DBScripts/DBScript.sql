@@ -3,10 +3,6 @@ GO
 /****** Object:  Database [CodeTestSGCIS]    Script Date: 9/12/2020 10:14:12 PM ******/
 CREATE DATABASE [CodeTestSGCIS]
  CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'CodeTestSGCIS', FILENAME = N'C:\Users\david\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\CodeTestSGCIS.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'CodeTestSGCIS_log', FILENAME = N'C:\Users\david\AppData\Local\Microsoft\Microsoft SQL Server Local DB\Instances\MSSQLLocalDB\CodeTestSGCIS.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
 GO
 ALTER DATABASE [CodeTestSGCIS] SET COMPATIBILITY_LEVEL = 130
 GO
