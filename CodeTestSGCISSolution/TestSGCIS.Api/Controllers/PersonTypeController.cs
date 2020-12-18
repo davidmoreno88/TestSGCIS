@@ -29,7 +29,7 @@ namespace CodeTestSGCIS.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<PersonTypeDto>>))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<PersonTypeDto>))]
         public IActionResult GetPersonTypes()
         {
             var typePersons = _personTypeService.GetPersonTypes();

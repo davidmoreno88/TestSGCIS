@@ -1,8 +1,11 @@
 ﻿using CodeTestSGCIS.Core.DTOs;
+using CodeTestSGCIS.WebTelerik.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -40,8 +43,16 @@ namespace CodeTestSGCIS.WebTelerik.Controllers
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                var dsResult = (JsonConvert.DeserializeObject<PersonDto>(response.Content));
-                return View(dsResult);
+                PersonDto person = JsonConvert.DeserializeObject<PersonDto>(response.Content);
+
+                client = new RestClient(baseUrl + "PersonType");
+                restRequest = new RestRequest(Method.GET);
+                response = await client.ExecuteAsync<IEnumerable<PersonTypeDto>>(restRequest);
+
+                IEnumerable<PersonTypeDto> personTypes = (JsonConvert.DeserializeObject<IEnumerable<PersonTypeDto>>(response.Content));
+                PersonTypeDto personType = personTypes.FirstOrDefault(pT => pT.Id == person.IdTypePerson);
+
+                return View(new PersonModel { person = person, personType = personType });
             }
             return View();
 

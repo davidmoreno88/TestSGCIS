@@ -1,4 +1,4 @@
-﻿@model CodeTestSGCIS.Core.DTOs.PersonDto
+﻿@model CodeTestSGCIS.WebTelerik.Models.PersonModel
 @{ ViewData["Title"] = "SGCIS Test Page 2"; }
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
@@ -6,16 +6,16 @@
 <link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css" />
 <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
-<div>
-    <div align="left" style="width:30%">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-    <div align="center" class="width:30%">
-        @Html.DisplayFor(model => model.Age)
-    </div>
-    <div align="right" class="width:30%">
-        @Html.DisplayFor(model => model.IdTypePerson)
-    </div>
+<div class="row">
+    <label class="text-left col-sm">
+        @Html.DisplayFor(model => model.person.Name)
+    </label>
+    <label class="text-center col-sm">
+        @Html.DisplayFor(model => model.person.Age)
+    </label>
+    <label class="text-right col-sm">
+        @Html.DisplayFor(model => model.personType.TypePersonDescription)
+    </label>
 </div>
 <div id="chart"></div>
 <script type="text/javascript">
